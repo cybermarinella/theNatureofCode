@@ -3,6 +3,8 @@
 // http://natureofcode.com/
 // Session 2: Drag Force
 
+
+
 var Liquid = function(x, y, w, h, c) {
   this.x = x;
   this.y = y;
@@ -33,6 +35,9 @@ var Liquid = function(x, y, w, h, c) {
   }
 
   this.display = function() {
-    rect(this.x, this.y, this.w, this.h);
+    ellipse(this.x+this.w/2, this.y+this.w/2, this.w, this.h);
+    for (var i = 1; i <= cerchi; ++i) {
+      ellipse(this.x+this.w/2, this.y+this.w/2, this.w-i*cerchiw, this.h-i*cerchih);
+    }
   }
 }

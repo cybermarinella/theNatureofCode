@@ -20,8 +20,7 @@ var h;
 var y;
 
 // Pelini
-
-var pelini = [];
+var p = [];
 var separator;
 var segLength = 90;
 
@@ -67,12 +66,6 @@ function setup() {
   liquid = new Liquid(liquidCenterx, liquidCentery, liquidSize, liquidSize, 0.25); // set optical center height/2-liquidSize/2-height/21
   particle1 = new Particle(m1, 0, height/2);
   particle2 = new Particle(m2, 0, height/2);
-  
-  for(var x = separator/2; x <= width; x+=separator){
-    for(var y = separator/2; y <= height; y+=separator){
-			pelini[0] = new Particle(m2, 0, height/2);
-    }
-  }
 }
 
 function draw() {
@@ -87,16 +80,16 @@ function draw() {
   
   blendMode(DIFFERENCE);
 
-  pelino();
-  
+  pelini();
+
   // Draw water
   liquid.display();
-
-  // Is the Mover in the liquid?
-  var distance1 = int(liquidCenter.dist(particle1.position));
-  var distance2 = int(liquidCenter.dist(particle2.position)); 
   
-  if (liquid.contains(particle1)) {
+  // Is the Mover in the liquid?
+  var distance1 = liquidCenter.dist(particle1.position);
+  var distance2 = liquidCenter.dist(particle2.position); 
+  
+  if (distance1 > liquidSize/2) {
     // Calculate drag force
     var dragForce = liquid.calculateDrag(particle1);
     // Apply drag force to Mover
@@ -122,12 +115,10 @@ function draw() {
   particle1.checkEdges();
 
 
-  // Is the Mover in the liquid?
-  if (liquid.contains(particle2)) {
-    // Calculate drag force
+  if (distance2 > liquidSize/2) {
     var dragForce = liquid.calculateDrag(particle2);
-    // Apply drag force to Mover
     particle2.applyForce(dragForce);
+    //console.log(distance2);
   }
 
   // Gravity is scaled by mass here!
