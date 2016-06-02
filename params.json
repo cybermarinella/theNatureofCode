@@ -1,6 +1,6 @@
 {
   "name": "Thenatureofcode",
   "tagline": "many many rainbows, rainbows everywere",
-  "body": "### Assignment 1: Random Walker 100%\r\nCreate your own object that moves around the screen. What is it? A butterfly? An alien? Be as creative as you like.\r\n\r\n### Assignment 2: Physics 84%\r\nCreate a simulation entirely driven by forces.\r\n\r\n### Assignment 3: Steering Forces\r\nThis assignment will have you creating your own simulation using steering forces.",
+  "body": "### [Assignment 1: Random Walker]\r\nIn this session we’ll review the basics of p5.js and get everyone up and running with posting sketches online. We’ll look at how object-oriented programming works in JS and create simple sketches of objects moving around a canvas.\r\n\r\n### Assignment 2: Physics 84%\r\nCreate a simulation entirely driven by forces.\r\n\r\n### Assignment 3: Steering Forces\r\nThis assignment will have you creating your own simulation using steering forces.",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
