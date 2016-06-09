@@ -58,30 +58,18 @@ function FlowField(r) {
   // Renders a vector object 'v' as an arrow and a location 'x,y'
   var drawVector = function(v, x, y, scayl) {
     push();
-    
-    var arrowsize = 8;
+    blendMode(DIFFERENCE);
+    var arrowsize = 180;
     // Translate to location to render vector
     translate(x, y);
-   // stroke(200, 100);
-
     // Call vector heading function to get direction (note that pointing to the right is a heading of 0) and rotate
     rotate(v.heading());
     // Calculate length of vector & scale it to be bigger or smaller if necessary
+    
     var len = v.mag() ;
-    // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
-    //stroke(50)
-    //line(0, 0, len, 0);
-    //ellipse(len, 0, arrowsize*10, arrowsize*len);
-   // blendMode(LIGHTEST);
-    /*beginShape();
-      vertex(len, arrowsize);
-      vertex(len-arrowsize, arrowsize*1.618);
-      vertex(0, len);
-    endShape(CLOSE);*/
-    fill(h, 20, 90);
+    fill(0, 5, 100, 100);
     arc(len, 0, arrowsize, arrowsize, 0, PI, PIE);
     rotate(PI)
-    fill(h/2, 10, 90);
     arc(len, -10, arrowsize, arrowsize, 0, PI, PIE);
 
     //line(len,0,len-arrowsize,-arrowsize/2);

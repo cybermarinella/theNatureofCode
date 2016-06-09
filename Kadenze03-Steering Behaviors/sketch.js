@@ -21,8 +21,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSB, 100, 100, 100);  
   noStroke();
-  frameRate(60)
-  flowfield = new FlowField(80);
+  frameRate(1000)
+  flowfield = new FlowField(120);
   // Make a whole bunch of vehicles with random maxspeed and maxforce values
   for (var i = 0; i < 7; i++) {
     colors = colors + 14.285;
@@ -33,7 +33,9 @@ function setup() {
 function draw() {
   background(h, 0, 95); 
   // Display the flowfield in "debug" mode
+
   flowfield.display();
+  
   // Tell all the vehicles to follow the flow field
   for (var i = 0; i < vehicles.length; i++) {
     vehicles[i].follow(flowfield);

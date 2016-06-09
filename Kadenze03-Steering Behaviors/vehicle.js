@@ -10,8 +10,8 @@ function Vehicle(x,y,ms,mf, colors) {
   this.acceleration = createVector(0,0);
   this.velocity = createVector(0,0);
   this.r = 3;
-  this.maxspeed = ms || 2;
-  this.maxforce = mf || 0.1;
+  this.maxspeed = ms || 3;
+  this.maxforce = mf || 0.5;
 
   this.run = function() {
     this.update();
@@ -61,19 +61,23 @@ function Vehicle(x,y,ms,mf, colors) {
   this.display = function() {
     // Draw a triangle rotated in the direction of velocity
     var theta = this.velocity.heading() + PI/2;
+    var erre = this.r;
     y = y + 3;
             
     push();
+    
+    //rotate puff
     translate(this.position.x,this.position.y);
     rotate(theta);
 
+  
+
     // Legs moovement
-    
     if (y <= 0-20 || y >= 0+40) {
       y = 0;
     }
+      coda(x, y, erre)
     // legs
-    var erre = this.r;
     stroke(colors, 100, 100);
     
     leg01(y, erre);
@@ -142,4 +146,8 @@ function leg02(y, erre){
   ellipse(erre*15, y-60, 5, 5);
   line(0, 0, -erre*15, y-60);
   ellipse(-erre*15, y-60, 5, 5);
+}
+
+function coda(x, y, erre){
+  star(0, y+50, 3, 21, 14)
 }
