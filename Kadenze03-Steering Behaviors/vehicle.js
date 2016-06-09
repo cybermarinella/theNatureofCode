@@ -39,6 +39,7 @@ function Vehicle(x,y,ms,mf) {
 
     // Method to update location
   this.update = function() {
+     fill(h, 300, 320);
     // Update velocity
     this.velocity.add(this.acceleration);
     // Limit speed
@@ -50,10 +51,10 @@ function Vehicle(x,y,ms,mf) {
 
   // Wraparound
   this.borders = function() {
-    if (this.position.x < -this.r) this.position.x = width+this.r;
-    if (this.position.y < -this.r) this.position.y = height+this.r;
-    if (this.position.x > width+this.r) this.position.x = -this.r;
-    if (this.position.y > height+this.r) this.position.y = -this.r;
+    if (this.position.x < -this.r) this.position.x = width-this.r;
+    if (this.position.y < -this.r) this.position.y = height-this.r;
+    if (this.position.x > width+this.r) this.position.x = this.r;
+    if (this.position.y > height+this.r) this.position.y = this.r;
   }
 
 
@@ -63,26 +64,84 @@ function Vehicle(x,y,ms,mf) {
     //fill(127);
     //stroke(200);
     //strokeWeight(1);
+            y = y + 3;
+            
     push();
-  
+    //blendMode(DIFFERENCE);
+    //fill(h, 300, 320);
+    
     translate(this.position.x,this.position.y);
     rotate(theta);
+    stroke(h, 320, 360);
+
+
     
-    for(var i = 1.618; i <= 21; ++i){
-      rotate(theta/2);
-      //stroke(i*10);
-      //noFill();
-     // ellipse(0, -this.r, i, i);
-      ellipse(-this.r, 0, i*10, i*10);
-      /*push()
-      blendMode(SCREEN);
-      beginShape();
-      vertex(0, -this.r*20);
-      vertex(-this.r*20, 0);
-      vertex(this.r*20, this.r*20);
-      endShape(CLOSE);
-      pop();*/
+    // Legs moovement and sound
+    if (y <= 0-20 || y >= 0+40) {
+      y = 0;
+    }
+    
+    
+    line(0, 0, this.r*15, y);
+    ellipse(this.r*15, y, 3,3)
+    line(0, 0, -this.r*15, y);
+    ellipse(-this.r*15, y, 3,3)
+    line(0, 0, this.r*15, y+20);
+    ellipse(this.r*15, y+20, 3,3)
+    line(0, 0, -this.r*15, y+20);
+    ellipse(-this.r*15, y+20, 3,3)
+    
+    line(0, 0, this.r*15, y-40);
+    ellipse(this.r*15,y-40, 3,3)
+    line(0, 0, -this.r*15, y-40);
+    ellipse(-this.r*15, y-40, 3,3)
+    line(0, 0, this.r*15, y-60);
+    ellipse(this.r*15, y-60, 3,3)
+    line(0, 0, -this.r*15, y-60);
+    ellipse(-this.r*15, y-60, 3,3);
+    
+    noStroke();
+
+    push()
+    for(var i = 1; i <= 3; ++i){
+      rotate(theta)
+      //star(0, 0, 10, 40+i, 31+i);
+      star(0, 0, 15, 30*i, 20*i)
     }
     pop();
+    
+   var eye= constrain(20/theta*2, 5, 25);
+   
+   fill(300, 0, 320);
+   ellipse(-10, -7, eye, eye);
+   ellipse(10, -7, eye, eye);
+   ellipse(-5, -15, eye/1.618, eye/1.618);
+   ellipse(5, -15, eye/1.618, eye/1.618);
+   
+   if (eye >=8){
+     
+    fill(h, 300, 300);
+    ellipse(-10, -7, eye/1.618, eye/1.618);
+    ellipse(10, -7, eye/1.618, eye/1.618);
+   }
+   console.log(eye);
+
+    pop();
   }
+}
+
+
+function star(x, y, radius1, radius2, npoints) {
+  var angle = TWO_PI / npoints;
+  var halfAngle = angle/2.0;
+  beginShape();
+  for (var a = 0; a < TWO_PI; a += angle) {
+    var sx = x + cos(a) * radius2;
+    var sy = y + sin(a) * radius2;
+    vertex(sx, sy);
+    sx = x + cos(a+halfAngle) * radius1;
+    sy = y + sin(a+halfAngle) * radius1;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
 }
