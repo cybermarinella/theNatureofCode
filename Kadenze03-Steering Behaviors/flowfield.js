@@ -78,10 +78,10 @@ function FlowField(r) {
       vertex(len-arrowsize, arrowsize*1.618);
       vertex(0, len);
     endShape(CLOSE);*/
-    fill(h, 300, 320, 300);
+    fill(h, 20, 90);
     arc(len, 0, arrowsize, arrowsize, 0, PI, PIE);
     rotate(PI)
-    fill(h/2, 300, 320, 300);
+    fill(h/2, 10, 90);
     arc(len, -10, arrowsize, arrowsize, 0, PI, PIE);
 
     //line(len,0,len-arrowsize,-arrowsize/2);
