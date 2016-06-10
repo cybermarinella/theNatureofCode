@@ -3,7 +3,7 @@
 // http://natureofcode.com/
 // Session 3: Flow Field Following
 
-// The "Vehicle" constructor
+// The "PUFF" constructor
 
 function Vehicle(x,y,ms,mf, colors) {
   this.position = createVector(x,y);
@@ -11,7 +11,7 @@ function Vehicle(x,y,ms,mf, colors) {
   this.velocity = createVector(0,0);
   this.r = 3;
   this.maxspeed = ms || 3;
-  this.maxforce = mf || 0.5;
+  this.maxforce = mf || 0.8;
 
   this.run = function() {
     this.update();
@@ -59,53 +59,29 @@ function Vehicle(x,y,ms,mf, colors) {
 
 
   this.display = function() {
-    // Draw a triangle rotated in the direction of velocity
+    // Draw a Puff rotated in the direction of velocity
     var theta = this.velocity.heading() + PI/2;
     var erre = this.r;
+    var eye= constrain(20/theta*2, 5, 20);
     y = y + 3;
             
     push();
     
-    //rotate puff
+    //rotate Puff
     translate(this.position.x,this.position.y);
     rotate(theta);
-
-  
 
     // Legs moovement
     if (y <= 0-20 || y >= 0+40) {
       y = 0;
     }
-      coda(x, y, erre)
-    // legs
-    stroke(colors, 100, 100);
+      
+    coda(x, y, erre)
+    leg01(y, erre, colors);
+    leg02(y, erre, colors);
+    body(theta, colors);
+    eyes(eye, colors);
     
-    leg01(y, erre);
-    leg02(y, erre);
-    
-    // body
-    noStroke();
-    push()
-    for(var i = 1; i <= 3; ++i){
-      rotate(theta)
-      star(0, 0, 20, 26*i, 20*i)
-    }
-    pop();
-  
-    // eyes
-    var eye= constrain(20/theta*2, 5, 20);
-     
-    fill(100, 0, 95);
-    ellipse(-10, -7, eye, eye);
-    ellipse(10, -7, eye, eye);
-    ellipse(-5, -15, eye/1.618, eye/1.618);
-    ellipse(5, -15, eye/1.618, eye/1.618);
-     
-    if (eye >=8){
-      fill(colors, 100, 100);
-      ellipse(-10, -7, eye/1.618, eye/1.618);
-      ellipse(10, -7, eye/1.618, eye/1.618);
-    }
     pop();
   }
 }
@@ -126,7 +102,12 @@ function star(x, y, radius1, radius2, npoints) {
   endShape(CLOSE);
 }
 
-function leg01(y, erre){
+function coda(x, y, erre){
+  star(0, y+50, 3, 21, 14);
+}
+
+function leg01(y, erre, colors){
+  stroke(colors, 100, 100);
   line(0, 0, erre*15, y);
   ellipse(erre*15, y, 5, 5);
   line(0, 0, -erre*15, y);
@@ -137,7 +118,8 @@ function leg01(y, erre){
   ellipse(-erre*15, y+20, 5, 5)
 }
 
-function leg02(y, erre){
+function leg02(y, erre, colors){
+  stroke(colors, 100, 100);
   line(0, 0, erre*15, y-40);
   ellipse(erre*15,y-40, 5, 5);
   line(0, 0, -erre*15, y-40);
@@ -148,6 +130,26 @@ function leg02(y, erre){
   ellipse(-erre*15, y-60, 5, 5);
 }
 
-function coda(x, y, erre){
-  star(0, y+50, 3, 21, 14)
+function body(theta){
+    noStroke();
+    push()
+    for(var i = 1; i <= 3; ++i){
+      rotate(theta)
+      star(0, 0, 20, 26*i, 20*i)
+    }
+    pop();
+}
+
+function eyes(eye, colors){
+    fill(100, 0, 95);
+    ellipse(-10, -7, eye, eye);
+    ellipse(10, -7, eye, eye);
+    ellipse(-5, -15, eye/1.618, eye/1.618);
+    ellipse(5, -15, eye/1.618, eye/1.618);
+     
+    if (eye >=8){
+      fill(colors, 90, 60);
+      ellipse(-10, -7, eye/1.618, eye/1.618);
+      ellipse(10, -7, eye/1.618, eye/1.618);
+    }
 }
