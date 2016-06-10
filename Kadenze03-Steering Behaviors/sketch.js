@@ -23,9 +23,11 @@ function setup() {
   noStroke();
   frameRate(1000)
   flowfield = new FlowField(120);
-  // Make a whole bunch of vehicles with random maxspeed and maxforce values
-  for (var i = 0; i < 7; i++) {
-    colors = colors + 14.285;
+  
+  // many rainbow puffs
+  var pmanypuffs = 28;
+  for (var i = 0; i < pmanypuffs; i++) {
+    colors = colors + 100/pmanypuffs;
     vehicles.push(new Vehicle(random(width/2+(height/1.618)/2, width/2-(height/1.618)/2), random(height/2+(height/1.618)/2, height/2-(height/1.618)/2), random(2, 6), random(0.1, 0.5), colors));
   }
 }
