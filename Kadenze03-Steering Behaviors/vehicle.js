@@ -39,7 +39,7 @@ function Vehicle(x,y,ms,mf, colors) {
 
     // Method to update location
   this.update = function() {
-     fill(colors, 100, 100);
+     fill(colors, 100, 90);
     // Update velocity
     this.velocity.add(this.acceleration);
     // Limit speed

@@ -32,9 +32,16 @@ function setup() {
 
 function draw() {
   background(h, 0, 95); 
-  // Display the flowfield in "debug" mode
-
+  
+  // Display the flowfield 
   flowfield.display();
+  
+  push()
+  blendMode(SCREEN);
+  fill(h, 3, 98, 10);
+  rect(0, 0, width, height)
+  pop()
+  
   
   // Tell all the vehicles to follow the flow field
   for (var i = 0; i < vehicles.length; i++) {

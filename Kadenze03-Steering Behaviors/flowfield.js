@@ -59,6 +59,7 @@ function FlowField(r) {
   var drawVector = function(v, x, y, scayl) {
     push();
     blendMode(DIFFERENCE);
+    fill(0, 0, 100, 100);
     var arrowsize = 180;
     // Translate to location to render vector
     translate(x, y);
@@ -67,15 +68,13 @@ function FlowField(r) {
     // Calculate length of vector & scale it to be bigger or smaller if necessary
     
     var len = v.mag() ;
-    fill(0, 5, 100, 100);
+    
     arc(len, 0, arrowsize, arrowsize, 0, PI, PIE);
     rotate(PI)
-    arc(len, -10, arrowsize, arrowsize, 0, PI, PIE);
+    arc(len, -180/21, arrowsize, arrowsize, 0, PI, PIE);
 
-    //line(len,0,len-arrowsize,-arrowsize/2);
     pop();
-    
-    
+
     
   };
 }
