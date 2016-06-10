@@ -8,7 +8,7 @@ function FlowField(r) {
   this.resolution = r;
   // Determine the number of columns and rows based on sketch's width and height
   this.cols = width / this.resolution+1;
-  this.rows = height / this.resolution;
+  this.rows = height / this.resolution+1;
   // A flow field is a two dimensional array of p5.Vectors
   // We can't make 2D arrays, but this is sort of faking it
   this.make2Darray = function(n) {
