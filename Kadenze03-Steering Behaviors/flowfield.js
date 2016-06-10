@@ -7,7 +7,7 @@ function FlowField(r) {
   // How large is each "cell" of the flow field
   this.resolution = r;
   // Determine the number of columns and rows based on sketch's width and height
-  this.cols = width / this.resolution;
+  this.cols = width / this.resolution+1;
   this.rows = height / this.resolution;
   // A flow field is a two dimensional array of p5.Vectors
   // We can't make 2D arrays, but this is sort of faking it
@@ -43,7 +43,7 @@ function FlowField(r) {
   this.display = function() {
     for (var i = 0; i < this.cols; i++) {
       for (var j = 0; j < this.rows; j++) {
-        drawVector(this.field[i][j], i * this.resolution, j * this.resolution, this.resolution - 20);
+        drawVector(this.field[i][j], i * this.resolution, j * this.resolution, this.resolution+20);
       }
     }
   };
@@ -58,7 +58,7 @@ function FlowField(r) {
   // Renders a vector object 'v' as an arrow and a location 'x,y'
   var drawVector = function(v, x, y, scayl) {
     push();
-    //blendMode(DIFFERENCE);
+    //
     var arrowsize = 180;
     // Translate to location to render vector
     translate(x, y);
@@ -68,10 +68,18 @@ function FlowField(r) {
     
     var len = v.mag() ;
     fill(0, 10, 10, 100);
-    arc(len, +5, arrowsize, arrowsize, 0, PI, PIE);
+    arc(len, -1, arrowsize, arrowsize, 0, PI, PIE);
+    fill(0, 10, 15, 100);
+    arc(len, -1, arrowsize/1.618, arrowsize/1.618, 0, PI, PIE);
+    fill(0, 10, 10, 100);
+    arc(len, -1, (arrowsize/1.618)/1.618, (arrowsize/1.618)/1.618, 0, PI, PIE);
     rotate(PI)
-    fill(0, 20, 20, 100);
-    arc(len, +5, arrowsize, arrowsize, 0, PI, PIE);
+    fill(0, 10, 15, 100);
+    arc(len, -1, arrowsize, arrowsize, 0, PI, PIE);
+    fill(0, 10, 10, 100);
+    arc(len, -1, arrowsize/1.618, arrowsize/1.618, 0, PI, PIE);
+    fill(0, 10, 15, 100);
+    arc(len, -1, (arrowsize/1.618)/1.618, (arrowsize/1.618)/1.618, 0, PI, PIE);
 
     pop();
 

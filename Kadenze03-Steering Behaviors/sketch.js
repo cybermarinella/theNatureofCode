@@ -22,7 +22,7 @@ function setup() {
   colorMode(HSB, 100, 100, 100);  
   noStroke();
   frameRate(1000)
-  flowfield = new FlowField(200);
+  flowfield = new FlowField(120);
   // Make a whole bunch of vehicles with random maxspeed and maxforce values
   for (var i = 0; i < 7; i++) {
     colors = colors + 14.285;
@@ -36,11 +36,11 @@ function draw() {
   // Display the flowfield 
   flowfield.display();
   
-  push()
+  /*push()
   blendMode(SCREEN);
   fill(h, 0, 98, 10);
   rect(0, 0, width, height)
-  pop()
+  pop()*/
   
   
   // Tell all the vehicles to follow the flow field
