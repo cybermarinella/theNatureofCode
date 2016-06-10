@@ -1,7 +1,7 @@
-// Daniel Shiffman
+// Daniel Shiffman Base
 // https://www.kadenze.com/courses/the-nature-of-code
 // http://natureofcode.com/
-// Session 3: Flow Field Following
+// Rainbow Puffs 
 
 // The "PUFF" constructor
 
@@ -37,7 +37,7 @@ function Vehicle(x,y,ms,mf, colors) {
     this.acceleration.add(force);
   }
 
-    // Method to update location
+    
   this.update = function() {
      fill(colors, 100, 90);
     // Update velocity

@@ -1,7 +1,7 @@
-// Daniel Shiffman
+// Daniel Shiffman Base
 // https://www.kadenze.com/courses/the-nature-of-code
 // http://natureofcode.com/
-// Session 3: Flow Field Following
+// Rainbow Puffs 
 
 function FlowField(r) {
   // How large is each "cell" of the flow field
