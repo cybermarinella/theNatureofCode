@@ -26,9 +26,14 @@ function setup() {
   
   // many rainbow puffs
   var pmanypuffs = 28;
+  var lg_diam = height/1.618;
   for (var i = 0; i < pmanypuffs; i++) {
+    var angle = i * TWO_PI / pmanypuffs;
+    var px = width/2 + sin(angle) * lg_diam/2;
+    var py = height/2 + cos(angle) * lg_diam/2;
     colors = colors + 100/pmanypuffs;
-    vehicles.push(new Vehicle(random(width/2+(height/1.618)/2, width/2-(height/1.618)/2), random(height/2+(height/1.618)/2, height/2-(height/1.618)/2), random(2, 6), random(0.1, 0.5), colors));
+    //vehicles.push(new Vehicle(random(width/2+(height/1.618)/2, width/2-(height/1.618)/2), random(height/2+(height/1.618)/2, height/2-(height/1.618)/2), random(2, 6), random(0.1, 0.5), colors));
+    vehicles.push(new Vehicle(px, py, random(2, 6), random(0.1, 0.5), colors));
   }
 }
 
