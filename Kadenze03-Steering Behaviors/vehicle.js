@@ -3,7 +3,7 @@
 // http://natureofcode.com/
 // Rainbow Puffs 
 
-// The "PUFF" constructor
+// The "Rainbow PUFF" constructor
 
 function Vehicle(x,y,ms,mf, colors) {
   this.position = createVector(x,y);
@@ -103,27 +103,31 @@ function star(x, y, radius1, radius2, npoints) {
 }
 
 function coda(x, y, erre){
-  star(0, y+50, 3, 21, 14);
+  star(0, y+50, 3, 21, 21);
 }
 
 function leg01(y, erre, colors){
   stroke(colors, 100, 100);
   line(0, 0, erre*15, y);
   ellipse(erre*15, y, 5, 5);
-  line(0, 0, -erre*15, y);
-  ellipse(-erre*15, y, 5, 5);
+  line(0, 0, -erre*15, y-40);
+  ellipse(-erre*15, y-40, 5, 5);
+
+  
   line(0, 0, erre*15, y+20);
   ellipse(erre*15, y+20, 5, 5);
   line(0, 0, -erre*15, y+20);
-  ellipse(-erre*15, y+20, 5, 5)
+  ellipse(-erre*15, y+20, 5, 5);
 }
 
 function leg02(y, erre, colors){
   stroke(colors, 100, 100);
+  
   line(0, 0, erre*15, y-40);
   ellipse(erre*15,y-40, 5, 5);
-  line(0, 0, -erre*15, y-40);
-  ellipse(-erre*15, y-40, 5, 5);
+  line(0, 0, -erre*15, y);
+  ellipse(-erre*15, y, 5, 5);
+  
   line(0, 0, erre*15, y-60);
   ellipse(erre*15, y-60, 5, 5);
   line(0, 0, -erre*15, y-60);
@@ -135,7 +139,7 @@ function body(theta){
     push()
     for(var i = 1; i <= 3; ++i){
       rotate(theta)
-      star(0, 0, 20, 26*i, 20*i)
+      star(0, 0, 20, 20*i, 38*i)
     }
     pop();
 }
@@ -151,5 +155,16 @@ function eyes(eye, colors){
       fill(colors, 90, 60);
       ellipse(-10, -7, eye/1.618, eye/1.618);
       ellipse(10, -7, eye/1.618, eye/1.618);
+      if(eye >=20){
+        fill(100, 0, 95);
+        arc(0, -15, 20, 20, PI, 0);
+        fill(colors, 100, 90);
+        ellipse(-10, -2, eye*2, eye);
+        ellipse(10, -2, eye*2, eye);
+      }
+    }else{
+      fill(colors, 100, 90);
+      ellipse(-10, -2, eye*2, eye*2);
+      ellipse(10, -2, eye*2, eye*2);
     }
 }

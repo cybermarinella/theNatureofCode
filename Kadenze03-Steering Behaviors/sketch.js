@@ -21,11 +21,11 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSB, 100, 100, 100);  
   noStroke();
-  frameRate(1000)
+  frameRate(100000)
   flowfield = new FlowField(120);
   
   // many rainbow puffs
-  var pmanypuffs = 28;
+  var pmanypuffs = 21;
   var lg_diam = height/1.618;
   for (var i = 0; i < pmanypuffs; i++) {
     var angle = i * TWO_PI / pmanypuffs;
