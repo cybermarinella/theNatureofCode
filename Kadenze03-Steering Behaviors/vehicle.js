@@ -1,7 +1,7 @@
 // Daniel Shiffman Base
 // https://www.kadenze.com/courses/the-nature-of-code
 // http://natureofcode.com/
-// Rainbow Puffs 
+// Rainbow Puffs
 
 // The "Rainbow PUFF" constructor
 
@@ -12,6 +12,9 @@ function Vehicle(x,y,ms,mf, colors) {
   this.r = 3;
   this.maxspeed = ms || 3;
   this.maxforce = mf || 0.8;
+
+  this.trailPoints = []
+  this.trailLength = 100;
 
   this.run = function() {
     this.update();
@@ -37,7 +40,7 @@ function Vehicle(x,y,ms,mf, colors) {
     this.acceleration.add(force);
   }
 
-    
+
   this.update = function() {
      fill(colors, 100, 90);
     // Update velocity
@@ -49,12 +52,28 @@ function Vehicle(x,y,ms,mf, colors) {
     this.acceleration.mult(0);
   }
 
+  this.resetTrail = function() {
+    this.trailPoints.splice(0, this.trailPoints.length); //qui
+  }
+
   // Wraparound
   this.borders = function() {
-    if (this.position.x < -this.r) this.position.x = width-this.r;
-    if (this.position.y < -this.r) this.position.y = height-this.r;
-    if (this.position.x > width+this.r) this.position.x = this.r;
-    if (this.position.y > height+this.r) this.position.y = this.r;
+    if (this.position.x < -this.r) {
+      this.position.x = width-this.r;
+      this.resetTrail();
+    }
+    if (this.position.y < -this.r) {
+      this.position.y = height-this.r;
+      this.resetTrail();
+    }
+    if (this.position.x > width+this.r) {
+      this.position.x = this.r;
+      this.resetTrail();
+    }
+    if (this.position.y > height+this.r) {
+      this.position.y = this.r;
+      this.resetTrail();
+    }
   }
 
 
@@ -62,11 +81,14 @@ function Vehicle(x,y,ms,mf, colors) {
     // Draw a Puff rotated in the direction of velocity
     var theta = this.velocity.heading() + PI/2;
     var erre = this.r;
-    var eye= constrain(20/theta*2, 5, 20);
-    y = y + 3;
-            
+    var eye = constrain(20/theta*2, 5, 20);
+    y = y +3;
+    console.log(this.velocity.y)
+
     push();
-    
+
+    this.trail(this.position);
+
     //rotate Puff
     translate(this.position.x,this.position.y);
     rotate(theta);
@@ -75,17 +97,31 @@ function Vehicle(x,y,ms,mf, colors) {
     if (y <= 0-20 || y >= 0+40) {
       y = 0;
     }
-      
-    coda(x, y, erre)
+
+    coda(x, y, erre);
     leg01(y, erre, colors);
     leg02(y, erre, colors);
     body(theta, colors);
     eyes(eye, colors);
-    
+
     pop();
   }
-}
 
+  this.trail = function(position, erre) {
+    this.trailPoints.push(position.copy());
+    if(this.trailPoints.length > this.trailLength) {
+      this.trailPoints.shift();
+    }
+
+    noFill();
+    stroke(colors,100,100);
+    beginShape();
+    for(p of this.trailPoints) {
+      vertex(p.x, p.y);
+    }
+    endShape();
+  }
+}
 
 function star(x, y, radius1, radius2, npoints) {
   var angle = TWO_PI / npoints;
@@ -102,45 +138,63 @@ function star(x, y, radius1, radius2, npoints) {
   endShape(CLOSE);
 }
 
-function coda(x, y, erre){
-  star(0, y+50, 3, 21, 21);
-}
+function coda(x, y, erre){ };
 
 function leg01(y, erre, colors){
   stroke(colors, 100, 100);
-  line(0, 0, erre*15, y);
-  ellipse(erre*15, y, 5, 5);
-  line(0, 0, -erre*15, y-40);
-  ellipse(-erre*15, y-40, 5, 5);
-
-  
-  line(0, 0, erre*15, y+20);
-  ellipse(erre*15, y+20, 5, 5);
-  line(0, 0, -erre*15, y+20);
-  ellipse(-erre*15, y+20, 5, 5);
+  fill(colors, 100, 100);
+  var walkA = y;
+  var walkB = -y;
+      //DX_01
+      line(0, 0, erre*15, walkB+60);
+      ellipse(erre*15, walkB+60, 5, 5);
+      //DX_02
+      line(0, 0, erre*15, walkA-40);
+      ellipse(erre*15,walkA-40, 5, 5);
+      //DX_03
+      line(0, 0, erre*15, walkB);
+      ellipse(erre*15, walkB, 5, 5);
+      //DX_04
+      line(0, 0, erre*15, walkA+20);
+      ellipse(erre*15, walkA+20, 5, 5);
 }
 
 function leg02(y, erre, colors){
   stroke(colors, 100, 100);
+    var walkA = y;
+  var walkB = -y;
+  //SX_01
+      line(0, 0, -erre*15, walkB+60);
+      ellipse(-erre*15, walkB+60, 5, 5);
+
+  //SX_02
+      line(0, 0, -erre*15, walkA-40);
+      ellipse(-erre*15,walkA-40, 5, 5);
   
-  line(0, 0, erre*15, y-40);
-  ellipse(erre*15,y-40, 5, 5);
-  line(0, 0, -erre*15, y);
-  ellipse(-erre*15, y, 5, 5);
+  //SX_03
+      line(0, 0, -erre*15, walkB);
+      ellipse(-erre*15, walkB, 5, 5);
   
-  line(0, 0, erre*15, y-60);
-  ellipse(erre*15, y-60, 5, 5);
-  line(0, 0, -erre*15, y-60);
-  ellipse(-erre*15, y-60, 5, 5);
+  //SX_04
+      line(0, 0, -erre*15, walkA+20);
+      ellipse(-erre*15, walkA+20, 5, 5);
 }
 
-function body(theta){
+function body(theta, colors){
     noStroke();
+    
     push()
-    for(var i = 1; i <= 3; ++i){
+    //for(var i = 1; i <= 3; ++i){
       rotate(theta)
-      star(0, 0, 20, 20*i, 38*i)
-    }
+      image(body_01s, -body_01s.width/2, -body_01s.height/2);
+      rotate(theta)
+      image(body_01l, -body_01l.width/2, -body_01l.height/2);
+      rotate(theta)
+      image(body_01l, -body_01l.width/2, -body_01l.height/2);
+      //fill(colors, 100, 100);
+      //ellipse(0, 0, 90, 90);
+      
+    //}
     pop();
 }
 
@@ -156,15 +210,16 @@ function eyes(eye, colors){
       ellipse(-10, -7, eye/1.618, eye/1.618);
       ellipse(10, -7, eye/1.618, eye/1.618);
       if(eye >=20){
-        fill(100, 0, 95);
-        arc(0, -15, 20, 20, PI, 0);
-        fill(colors, 100, 90);
-        ellipse(-10, -2, eye*2, eye);
-        ellipse(10, -2, eye*2, eye);
+        fill(100, 0, 95,60);
+        arc(0, 8, 30, 30, TWO_PI, PI);
       }
     }else{
-      fill(colors, 100, 90);
-      ellipse(-10, -2, eye*2, eye*2);
-      ellipse(10, -2, eye*2, eye*2);
+      //fill(colors, 100, 90);
+      ellipse(-10, 0, eye/2, eye/2);
+      ellipse(10, 0, eye/2, eye/2);
     }
+    fill(100, 0, 95);
+    ellipse(-10, 10, eye/2, eye/2);
+    ellipse(10, 10, eye/2, eye/2);
+
 }
