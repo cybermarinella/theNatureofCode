@@ -17,8 +17,8 @@ var vehicles = [];
 var colors = 0;
 
 function preload() {  // preload() runs once
-     body_01l = loadImage("assets/body_01l.png"); 
-     body_01s = loadImage("assets/body_01s.png"); 
+     body_01l = loadImage("assets/body_00l.png"); 
+     body_01s = loadImage("assets/body_00s.png"); 
 }
 
 function setup() {
@@ -39,7 +39,7 @@ function setup() {
     var py = height/2 + cos(angle) * lg_diam/2;
     
     colors = colors + 100/pmanypuffs;
-    vehicles.push(new Vehicle(px, py, random(0.5, 7), random(0.5, 1), colors));
+    vehicles.push(new Vehicle(px, py, random(0.5, 7), random(0.3, 0.5), colors));
   }
 }
 

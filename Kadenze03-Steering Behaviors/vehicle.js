@@ -14,7 +14,7 @@ function Vehicle(x,y,ms,mf, colors) {
   this.maxforce = mf || 0.8;
 
   this.trailPoints = []
-  this.trailLength = 100;
+  this.trailLength = 20;
 
   this.run = function() {
     this.update();
@@ -42,7 +42,8 @@ function Vehicle(x,y,ms,mf, colors) {
 
 
   this.update = function() {
-     fill(colors, 100, 90);
+    fill(colors, 90, 90);
+    tint(colors, 90, 90);
     // Update velocity
     this.velocity.add(this.acceleration);
     // Limit speed
@@ -82,7 +83,14 @@ function Vehicle(x,y,ms,mf, colors) {
     var theta = this.velocity.heading() + PI/2;
     var erre = this.r;
     var eye = constrain(20/theta*2, 5, 20);
-    y = y +3;
+    
+     y = y+constrain(1*this.velocity.y, 1, 7 ) ;  
+   /* if(y>=0){
+      y = y+constrain(1*this.velocity.y, 1, 7 ) ;  
+    }else{
+      y = y-constrain(1*this.velocity.y, 1, 7 ) ;
+    }*/
+    
     console.log(this.velocity.y)
 
     push();
@@ -117,9 +125,11 @@ function Vehicle(x,y,ms,mf, colors) {
     stroke(colors,100,100);
     beginShape();
     for(p of this.trailPoints) {
+      strokeWeight(3)
       vertex(p.x, p.y);
     }
     endShape();
+          strokeWeight(1)
   }
 }
 
@@ -138,7 +148,9 @@ function star(x, y, radius1, radius2, npoints) {
   endShape(CLOSE);
 }
 
-function coda(x, y, erre){ };
+function coda(x, y, erre){
+  //star(0, y+50, 3, 21, 21);
+};
 
 function leg01(y, erre, colors){
   stroke(colors, 100, 100);
@@ -186,11 +198,14 @@ function body(theta, colors){
     push()
     //for(var i = 1; i <= 3; ++i){
       rotate(theta)
+      //tint(colors, 100, 100);
       image(body_01s, -body_01s.width/2, -body_01s.height/2);
       rotate(theta)
       image(body_01l, -body_01l.width/2, -body_01l.height/2);
       rotate(theta)
       image(body_01l, -body_01l.width/2, -body_01l.height/2);
+      
+       
       //fill(colors, 100, 100);
       //ellipse(0, 0, 90, 90);
       
@@ -209,10 +224,10 @@ function eyes(eye, colors){
       fill(colors, 90, 60);
       ellipse(-10, -7, eye/1.618, eye/1.618);
       ellipse(10, -7, eye/1.618, eye/1.618);
-      if(eye >=20){
+     /* if(eye >=20){
         fill(100, 0, 95,60);
         arc(0, 8, 30, 30, TWO_PI, PI);
-      }
+      }*/
     }else{
       //fill(colors, 100, 90);
       ellipse(-10, 0, eye/2, eye/2);
