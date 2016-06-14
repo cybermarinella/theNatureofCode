@@ -7,6 +7,14 @@
    - jekyll-coffeescript
    - jekyll-paginate
 
+   lsi: false
+ safe: true
+ source: [/theNatureofCode]
+ incremental: false
+ highlighter: rouge
+ gist:
+   noscript: false
+
 # Site settings
 title: 
 description: |
