@@ -87,7 +87,7 @@ function setup() {
 function draw() {
   frameRate(1000);
   noStroke();
-  
+  n=16;
   // is there is sun outside my screen will be multicolored and clear, otherwise it will have a better eyesight in a dark room
   if(n >=9 && n<=18 ){
     background(300, 0, 320); 

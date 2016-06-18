@@ -67,7 +67,7 @@ function Particle(m,x,y) {
     }
     if (this.position.y < 0) {
       this.velocity.y *= -0.1;  // no dampening when hitting the top
-      this.position.y = 0;
+      this.position.y = height-this.position.y ;
       if(m==m1){
         Poff.stop();
         if(ip <= 11){
