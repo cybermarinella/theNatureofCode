@@ -1,15 +1,14 @@
 // Daniel Shiffman
 // https://www.kadenze.com/courses/the-nature-of-code
 // http://natureofcode.com/
-// Session 4: Tree array of objects
-size = random(130, 150);
 
-function Branch(start, vel, n) {
+function Branch(start, vel, n, g) {
   this.start = start.copy();
   this.end = start.copy();
   this.vel = vel.copy();
   this.timerstart = n;
   this.timer = n;
+  this.generation = g;
 
   this.growing = true;
 
@@ -20,7 +19,8 @@ function Branch(start, vel, n) {
   }
 
   this.render = function() {
-    stroke(25, 25, 25, 90);
+    stroke(130, 130, 130);
+    strokeWeight(this.generation);
     line(this.start.x, this.start.y, this.end.x, this.end.y);
   }
 
@@ -33,8 +33,10 @@ function Branch(start, vel, n) {
       return false;
     }
   }
+  
 
-  this.branch = function(angle) {
+  this.branch = function(angle, posi) {
+
     // What is my current heading
     var theta = vel.heading();
     // What is my current speed
@@ -44,7 +46,8 @@ function Branch(start, vel, n) {
     // Look, polar coordinates to cartesian!!
     var newvel = createVector(m * cos(theta), m * sin(theta));
     // Return a new Branch
-    return new Branch(this.end, newvel, this.timerstart * 0.16);
+    return new Branch(this.end, newvel, this.timerstart * 0.16, this.thickness - .5);
   }
+
 
 }
